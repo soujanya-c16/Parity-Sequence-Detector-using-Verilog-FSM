@@ -1,0 +1,27 @@
+module test_parity;
+  reg  x, clk;
+  wire z;
+  parity_gen uut(
+    .x(x),
+    .clk(clk),
+    .z(z) 
+  );
+  
+  initial
+    begin
+      $dumpfile("parity.vcd");
+      $dumpvars(0,test_parity);
+      clk = 1'b0;
+      x = 0;
+    end
+  
+  always #6 clk = ~clk;
+  initial 
+  begin
+    #2 x = 0; #10 x=1; #10 x=1; #10 x=1; #10 x=0;
+     #10 x = 0; #10 x=1; #10 x=1; #10 x=1; #10 x=0;
+     #2 x = 0; #10 x=0; #10 x=1; #10 x=0; #10 x=0;
+    #10 $finish;
+    
+  end
+endmodule
