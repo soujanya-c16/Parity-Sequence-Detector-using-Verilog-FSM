@@ -1,0 +1,18 @@
+module parity_gen(x,clk,z);
+  input x, clk;
+  output reg z;
+  reg even_odd;
+  parameter Even = 0, Odd = 1;
+  always@(posedge clk)
+  case(even_odd)
+    Even:even_odd <= x ? Odd : Even;
+    Odd:even_odd <= x ? Even : Odd;
+    default:even_odd <=  Even;
+  endcase
+  
+  always@(even_odd)
+    case(even_odd)
+      Even: z =0;
+      Odd: z =1;
+    endcase
+endmodule
